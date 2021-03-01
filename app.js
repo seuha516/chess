@@ -449,7 +449,7 @@ io.sockets.on('connection', function(socket) {
   }  
 
 })
-
-server.listen(8080, function(){
+port = process.env.PORT || 8080;
+server.listen(port, function(){ 
   console.log(`서버 실행 중..`)
 })
