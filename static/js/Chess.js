@@ -1,9 +1,3 @@
-
-
-
-
-
-
 var socket = io()
 
 var 게임중=0
