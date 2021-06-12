@@ -504,7 +504,7 @@ io.sockets.on("connection", function (socket) {
     });
   }
 });
-port = process.env.PORT || 3000;
+port = process.env.PORT || 4002;
 server.listen(port, function () {
   console.log(`서버 실행 중..`);
 });
