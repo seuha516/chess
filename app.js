@@ -1,7 +1,7 @@
 /* 설치한 express 모듈 불러오기 */
 const express = require("express");
 /* 설치한 socket.io 모듈 불러오기 */
-const socket = require("socket.io");
+const Server = require("socket.io");
 /* Node.js 기본 내장 모듈 불러오기 */
 const https = require("https");
 /* Node.js 기본 내장 모듈 불러오기 */
@@ -296,7 +296,7 @@ const io = new Server(httpsServer, {
   cors: { origin: "*" },
 });
 
-io.sockets.on("connection", function (socket) {
+io.on("connection", function (socket) {
   /* 새로운 유저가 접속했을 경우 다른 소켓에게도 알려줌 */
   socket.on("newUser", function (name) {
     접속인원++;
