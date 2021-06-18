@@ -271,18 +271,18 @@ function 참가인원() {
 
 var 게임중 = 0;
 
-const option = {
-  ca: fs.readFileSync(
-    "/etc/letsencrypt/live/seungha-devlog-server.xyz/fullchain.pem"
-  ),
-  key: fs.readFileSync(
-    "/etc/letsencrypt/live/seungha-devlog-server.xyz/privkey.pem"
-  ),
-  cert: fs.readFileSync(
-    "/etc/letsencrypt/live/seungha-devlog-server.xyz/cert.pem"
-  ),
-};
-const httpsServer = require("https").createServer(option);
+// const option = {
+//   ca: fs.readFileSync(
+//     "/etc/letsencrypt/live/seungha-devlog-server.xyz/fullchain.pem"
+//   ),
+//   key: fs.readFileSync(
+//     "/etc/letsencrypt/live/seungha-devlog-server.xyz/privkey.pem"
+//   ),
+//   cert: fs.readFileSync(
+//     "/etc/letsencrypt/live/seungha-devlog-server.xyz/cert.pem"
+//   ),
+// };
+const httpsServer = require("https").createServer(optiond, app);
 const io = require("socket.io")(httpsServer, {
   cors: { origin: "*" },
 });
