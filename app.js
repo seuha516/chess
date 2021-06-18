@@ -1,10 +1,4 @@
-/* 설치한 express 모듈 불러오기 */
 const express = require("express");
-/* 설치한 socket.io 모듈 불러오기 */
-const Server = require("socket.io");
-/* Node.js 기본 내장 모듈 불러오기 */
-const https = require("https");
-/* Node.js 기본 내장 모듈 불러오기 */
 const fs = require("fs");
 /* express 객체 생성 */
 const app = express();
@@ -287,13 +281,13 @@ const option = {
     "/etc/letsencrypt/live/seungha-devlog-server.xyz/cert.pem"
   ),
 };
-
-const port = process.env.PORT || 4000;
-const httpsServer = https.createServer(option, app).listen(port, () => {
-  console.log(`[HTTPS] Server is started on port ${port}`);
-});
+const httpsServer = require("https").createServer(option);
 const io = new Server(httpsServer, {
   cors: { origin: "*" },
+});
+const port = process.env.PORT || 4000;
+httpsServer.listen(port, () => {
+  console.log(`[HTTPS] Server is started on port ${port}`);
 });
 
 io.on("connection", function (socket) {
