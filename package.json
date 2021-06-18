@@ -18,6 +18,7 @@
   "homepage": "https://github.com/seuha516/Chess#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "socket.io": "^3.1.2"
   }
 }

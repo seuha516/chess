@@ -3,17 +3,15 @@ const express = require("express");
 /* 설치한 socket.io 모듈 불러오기 */
 const socket = require("socket.io");
 /* Node.js 기본 내장 모듈 불러오기 */
-const http = require("http");
+const https = require("https");
 /* Node.js 기본 내장 모듈 불러오기 */
 const fs = require("fs");
 /* express 객체 생성 */
 const app = express();
-/* express http 서버 생성 */
-const server = http.createServer(app);
-/* 생성된 서버를 socket.io에 바인딩 */
-const io = socket(server);
+
 app.use("/css", express.static("./static/css"));
 app.use("/js", express.static("./static/js"));
+
 /* Get 방식으로 / 경로에 접속하면 실행 됨 */
 app.get("/", function (request, response) {
   fs.readFile("./Chess.html", function (err, data) {
@@ -278,6 +276,26 @@ function 참가인원() {
 
 var 게임중 = 0;
 
+const option = {
+  ca: fs.readFileSync(
+    "/etc/letsencrypt/live/seungha-devlog-server.xyz/fullchain.pem"
+  ),
+  key: fs.readFileSync(
+    "/etc/letsencrypt/live/seungha-devlog-server.xyz/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "/etc/letsencrypt/live/seungha-devlog-server.xyz/cert.pem"
+  ),
+};
+
+const port = process.env.PORT || 4000;
+const httpsServer = https.createServer(option, app).listen(port, () => {
+  console.log(`[HTTPS] Server is started on port ${port}`);
+});
+const io = new Server(httpsServer, {
+  cors: { origin: "*" },
+});
+
 io.sockets.on("connection", function (socket) {
   /* 새로운 유저가 접속했을 경우 다른 소켓에게도 알려줌 */
   socket.on("newUser", function (name) {
@@ -503,8 +521,4 @@ io.sockets.on("connection", function (socket) {
       참가인원: 참가인원(),
     });
   }
-});
-port = process.env.PORT || 4002;
-server.listen(port, function () {
-  console.log(`서버 실행 중..`);
 });
