@@ -282,7 +282,7 @@ const option = {
   ),
 };
 const httpsServer = require("https").createServer(option);
-const io = new Server(httpsServer, {
+const io = require("socket.io")(httpsServer, {
   cors: { origin: "*" },
 });
 const port = process.env.PORT || 4000;
